@@ -1,6 +1,6 @@
 {
   "name": "locale-parser",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "YAML based localization system",
   "main": "dist/src/index.js",
   "scripts": {
