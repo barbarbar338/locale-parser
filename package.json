@@ -23,9 +23,6 @@
   "repository": {
     "url": "https://github.com/barbarbar338/locale-parser"
   },
-  "engines": {
-    "node": "12.x"
-  },
   "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.2.12",
