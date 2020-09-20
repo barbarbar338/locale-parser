@@ -5,5 +5,5 @@ declare module "parsertypes" {
     }
     export type I18nString = { [key: string]: string };
     export type I18nFile = Map<string, I18nString>;
-    export type I18nLocales = Map<string, I18nFile>;    
+    export type I18nLocales = Map<string, I18nFile>;
 }

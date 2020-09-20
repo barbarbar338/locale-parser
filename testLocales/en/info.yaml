@@ -2,3 +2,7 @@ introduce: Hey, It's %{owner.name}! Send e-mails to %{owner.mail}
 noArgs: This is a string with no arguments or constants
 withArgs: 5+5 equals %{result}
 withArgsAndConstants: "%{owner.name} says: 5+5 equals %{result}"
+test:
+  - "%{owner.name}"
+  - "%{owner.mail}"
+  - "%{test}"

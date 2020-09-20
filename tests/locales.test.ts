@@ -5,7 +5,7 @@ describe("I18n Locales Test", () => {
     before(() => {
         parser = new I18n({
             defaultLocale: "en",
-            directory: "./testLocales/"
+            directory: "./testLocales/",
         });
     });
     it("Get Locales", () => {

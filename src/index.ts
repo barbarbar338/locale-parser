@@ -61,17 +61,33 @@ export class I18n {
             return `Key '${key}' not found in section ${section} in locale '${locale}'`;
         return stringFromKey;
     }
-    private replace(content: string, args?: I18nString): string {
+    private replace(
+        content: string | string[],
+        args?: I18nString,
+    ): string | string[] {
         if (args) {
             for (const arg in args) {
                 const regToken = new RegExp(`%{${arg}}`, "gm");
-                content = content.replace(regToken, args[arg]);
+                if (Array.isArray(content)) {
+                    content = content.map((str) =>
+                        str.replace(regToken, args[arg]),
+                    );
+                } else {
+                    content = content.replace(regToken, args[arg]);
+                }
             }
         }
-        if (this.constants) {
-            for (const constant in this.constants) {
+        const allConstants = this.constants;
+        if (allConstants) {
+            for (const constant in allConstants) {
                 const regToken = new RegExp(`%{${constant}}`, "gm");
-                content = content.replace(regToken, this.constants[constant]);
+                if (Array.isArray(content)) {
+                    content = content.map((str) =>
+                        str.replace(regToken, allConstants[constant]),
+                    );
+                } else {
+                    content = content.replace(regToken, allConstants[constant]);
+                }
             }
         }
         return content;
@@ -89,9 +105,9 @@ export class I18n {
         section: string,
         key: string,
         args?: I18nString,
-    ): string {
-        let resolvedString = this.resolveString(locale, section, key);
-        resolvedString = this.replace(resolvedString, args);
-        return resolvedString;
+    ): string | string[] {
+        const resolvedString = this.resolveString(locale, section, key);
+        const replacedString = this.replace(resolvedString, args);
+        return replacedString;
     }
 }

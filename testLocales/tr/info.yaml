@@ -2,3 +2,7 @@ introduce: Selam, ben %{owner.name}! %{owner.mail}'a e-posta atın!
 noArgs: Bu herhangi bir constant veya argüman barındırmayan bir string
 withArgs: 5+5 %{result}'a eşittir
 withArgsAndConstants: "%{owner.name} diyor ki: 5+5 %{result}'a eşittir"
+test:
+  - "%{owner.name}"
+  - "%{owner.mail}"
+  - "%{test}"
