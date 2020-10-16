@@ -1,13 +1,21 @@
 import yaml from "yaml";
 import fs from "fs";
 import path from "path";
-import { I18nOptions, I18nLocales, I18nFile, I18nString } from "parsertypes";
+import {
+    I18nOptions,
+    I18nLocales,
+    I18nFile,
+    I18nString,
+    I18nToJSON,
+    I18nConstants,
+    I18nArgs,
+} from "parsertypes";
 
 export class I18n {
     private locales: I18nLocales;
     private directory: string;
     private defaultLocale: string;
-    private constants?: { [param: string]: string };
+    private constants?: I18nConstants;
     constructor(options: I18nOptions) {
         this.directory = path.resolve(
             options.directory ? options.directory : "./locales",
@@ -49,7 +57,7 @@ export class I18n {
         locale: string,
         section: string,
         key: string,
-    ): string {
+    ): string | string[] {
         const localeMap =
             this.locales.get(locale) || this.locales.get(this.defaultLocale);
         if (!localeMap) return `Locale '${locale}' not found.`;
@@ -63,7 +71,7 @@ export class I18n {
     }
     private replace(
         content: string | string[],
-        args?: I18nString,
+        args?: I18nArgs,
     ): string | string[] {
         if (args) {
             for (const arg in args) {
@@ -92,19 +100,37 @@ export class I18n {
         }
         return content;
     }
-    getLocales(): string[] {
+    public getLocales(): string[] {
         return Array.from(this.locales.keys());
     }
-    getConstant(constant?: string): string | I18nString | undefined {
+    public getConstant(constant?: string): string | I18nConstants | undefined {
         if (constant)
             return this.constants ? this.constants[constant] : undefined;
         else return this.constants;
     }
-    get(
+    public toJSON(args?: I18nArgs): I18nToJSON {
+        const payload: I18nToJSON = { constants: this.constants };
+        const localeIterator = this.getLocales();
+        localeIterator.forEach((locale) => {
+            const localeObj: I18nToJSON = {};
+            const file = this.locales.get(locale) as I18nFile;
+            const sectionIterator = Array.from(file.keys());
+            sectionIterator.forEach((section) => {
+                const stringObject = file.get(section) as I18nString;
+                for (const str in stringObject) {
+                    stringObject[str] = this.replace(stringObject[str], args);
+                }
+                localeObj[section] = stringObject;
+            });
+            payload[locale] = localeObj;
+        });
+        return payload;
+    }
+    public get(
         locale: string,
         section: string,
         key: string,
-        args?: I18nString,
+        args?: I18nArgs,
     ): string | string[] {
         const resolvedString = this.resolveString(locale, section, key);
         const replacedString = this.replace(resolvedString, args);

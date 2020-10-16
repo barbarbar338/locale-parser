@@ -17,8 +17,10 @@ const parser = new I18n({
 });
 
 parser.getLocales(); // => [ "en", "tr" ];
-parser.getConstant();// => all constants;
-parser.getConstant("owner");// => "owner" constant;
+parser.getConstant(); // => all constants;
+parser.getConstant("owner"); // => "owner" constant;
+parser.toJSON(); // => all language data in an object
+parser.toJSON({ arg: "this is an argument"}); // => all language data in an object with argument replaced
 
 parser.get("en", "info", "test"); // "test" string in "info" section in "en" folder
 parser.get("tr", "messages", "message", { arg: "this is an argument"}); // "message" string in "messages" section in "tr" folder with "arg" argument
