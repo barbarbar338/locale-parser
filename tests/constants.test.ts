@@ -18,7 +18,7 @@ describe("I18n Constants Test", () => {
             .to.equal("demirci.baris38@gmail.com");
         expect(constants)
             .to.have.property("contact")
-            .to.equal("https://bariscodes.me/discord");
+            .to.equal("https://barbarbar338.fly.dev/discord");
     });
     it("Get Specified Constant", () => {
         expect(parser.getConstant("owner.name")).to.equal("barbarbar338");
@@ -26,7 +26,7 @@ describe("I18n Constants Test", () => {
             "demirci.baris38@gmail.com",
         );
         expect(parser.getConstant("contact")).to.equal(
-            "https://bariscodes.me/discord",
+            "https://barbarbar338.fly.dev/discord",
         );
     });
 });
