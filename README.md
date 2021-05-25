@@ -31,7 +31,7 @@ parser.get("tr", "messages", "message", { arg: "this is an argument"}); // "mess
 ### `locales/constants.yaml` example
 ```yaml
 owner: barbarbar338
-site: "https://bariscodes.me/"
+site: "https://barbarbar338.fly.dev/"
 anotherConstant: this is a constant
 ```
 
