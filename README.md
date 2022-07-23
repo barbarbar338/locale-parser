@@ -1,3 +1,7 @@
+> DEPRECATED: Use @hammerhq/localization
+>
+> ~barbarbar338
+
 # ✨ Locale Parser by barbarbar338
 - This is a YAML based localisation system that will make your job quite easy
 - Just create your language folder and seperate everything in files
